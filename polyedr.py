@@ -85,8 +85,9 @@ class Facet:
     """ Грань полиэдра """
     # Параметры конструктора: список вершин
 
-    def __init__(self, vertexes):
+    def __init__(self, vertexes, edges):
         self.vertexes = vertexes
+        self.edges = edges
 
     # «Вертикальна» ли грань?
     def is_vertical(self):
@@ -115,7 +116,12 @@ class Facet:
     def center(self):
         return sum(self.vertexes, R3(0.0, 0.0, 0.0)) * \
             (1.0 / len(self.vertexes))
+    
+    def _is_good(self):
+        pass
 
+    def square(self):
+        return
 
 class Polyedr:
     """ Полиэдр """
@@ -127,7 +133,7 @@ class Polyedr:
 
         # списки вершин, рёбер и граней полиэдра
         self.vertexes, self.edges, self.facets = [], [], []
-
+        self.perimetr = 0
         # список строк файла
         with open(file) as f:
             for i, line in enumerate(f):
@@ -154,14 +160,20 @@ class Polyedr:
                     # массив вершин этой грани
                     vertexes = list(self.vertexes[int(n) - 1] for n in buf)
                     # задание рёбер грани
+                    buf.clear()
                     for n in range(size):
-                        self.edges.append(Edge(vertexes[n - 1], vertexes[n]))
+                        edge = Edge(vertexes[n - 1], vertexes[n])
+                        buf.append(edge)
+                    self.edges += buf
                     # задание самой грани
-                    self.facets.append(Facet(vertexes))
+                    self.facets.append(Facet(vertexes, buf))
 
     # Метод изображения полиэдра
     def draw(self, tk):  # pragma: no cover
         tk.clean()
+        for f in self.facets:
+                if f._is_good:
+                    self.square += f.square
         for e in self.edges:
             for f in self.facets:
                 e.shadow(f)
