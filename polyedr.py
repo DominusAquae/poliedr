@@ -85,9 +85,8 @@ class Facet:
     """ Грань полиэдра """
     # Параметры конструктора: список вершин
 
-    def __init__(self, vertexes, edges):
+    def __init__(self, vertexes):
         self.vertexes = vertexes
-        self.edges = edges
 
     # «Вертикальна» ли грань?
     def is_vertical(self):
@@ -116,10 +115,11 @@ class Facet:
     def center(self):
         return sum(self.vertexes, R3(0.0, 0.0, 0.0)) * \
             (1.0 / len(self.vertexes))
-    
+
     def _is_good(self):
         for v in self.vertexes:
-            if (self.center().x)**2 + (self.center().y)**2 > 1 and (v.x)**2 + (v.y)**2 > 1:
+            if ((self.center().x)**2 + (self.center().y)**2 > 1) \
+                    and ((v.x)**2 + (v.y)**2 > 1):
                 return True
         pass
 
@@ -130,6 +130,7 @@ class Facet:
         for v in self.vertexes[2:]:
             s += R3.area(v1, v2, v)
         return s
+
 
 class Polyedr:
     """ Полиэдр """
@@ -178,13 +179,12 @@ class Polyedr:
     def draw(self, tk):  # pragma: no cover
         tk.clean()
         for f in self.facets:
-                if f._is_good:
-                    self.square += f.square()
+            if f._is_good:
+                self.square += f.square()
         for e in self.edges:
             for f in self.facets:
                 e.shadow(f)
             for s in e.gaps:
                 tk.draw_line(e.r3(s.beg), e.r3(s.fin))
 
-        return self.square /self.c**2
-        
+        return self.square / self.c**2
