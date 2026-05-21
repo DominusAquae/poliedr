@@ -44,7 +44,7 @@ class R3:
     
     @staticmethod
     def area(a, b, c):
-        return 0.5 * ((a.x - c.x) * (b.y - c.y) - (a.y - c.y) * (b.x - c.x))
+        return 0.5 * abs(((a.x - c.x) * (b.y - c.y) - (a.y - c.y) * (b.x - c.x)))
 
 
 if __name__ == "__main__":  # pragma: no cover
