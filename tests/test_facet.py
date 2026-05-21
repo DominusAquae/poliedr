@@ -2,6 +2,7 @@ import unittest
 from math import sqrt, isclose
 from r3 import R3
 from polyedr import Facet
+from polyedr import Edge
 from tests.matchers import R3ApproxMatcher, R3CollinearMatcher
 
 

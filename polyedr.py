@@ -169,13 +169,10 @@ class Polyedr:
                     # массив вершин этой грани
                     vertexes = list(self.vertexes[int(n) - 1] for n in buf)
                     # задание рёбер грани
-                    buf.clear()
                     for n in range(size):
-                        edge = Edge(vertexes[n - 1], vertexes[n])
-                        buf.append(edge)
-                    self.edges += buf
+                        self.edges.append(Edge(vertexes[n - 1], vertexes[n]))
                     # задание самой грани
-                    self.facets.append(Facet(vertexes, buf))
+                    self.facets.append(Facet(vertexes))
 
     # Метод изображения полиэдра
     def draw(self, tk):  # pragma: no cover
