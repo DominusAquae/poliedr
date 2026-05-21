@@ -41,6 +41,10 @@ class R3:
             self.y * other.z - self.z * other.y,
             self.z * other.x - self.x * other.z,
             self.x * other.y - self.y * other.x)
+    
+    @staticmethod
+    def area(a, b, c):
+        return 0.5 * ((a.x - c.x) * (b.y - c.y) - (a.y - c.y) * (b.x - c.x))
 
 
 if __name__ == "__main__":  # pragma: no cover

@@ -121,7 +121,12 @@ class Facet:
         pass
 
     def square(self):
-        return
+        s = 0
+        v1 = self.vertexes[0]
+        v2 = self.vertexes[1]
+        for v in self.vertexes[2:]:
+            s += R3.area(v1, v2, v)
+        return s
 
 class Polyedr:
     """ Полиэдр """
@@ -179,4 +184,6 @@ class Polyedr:
                 e.shadow(f)
             for s in e.gaps:
                 tk.draw_line(e.r3(s.beg), e.r3(s.fin))
+
+        return self.square
         
