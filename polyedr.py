@@ -118,6 +118,9 @@ class Facet:
             (1.0 / len(self.vertexes))
     
     def _is_good(self):
+        for v in self.vertexes:
+            if (self.center().x)**2 + (self.center().y)**2 > 1 and (v.x)**2 + (v.y)**2 > 1:
+                return True
         pass
 
     def square(self):
@@ -138,7 +141,8 @@ class Polyedr:
 
         # списки вершин, рёбер и граней полиэдра
         self.vertexes, self.edges, self.facets = [], [], []
-        self.perimetr = 0
+        self.square = 0
+        self.c = 0
         # список строк файла
         with open(file) as f:
             for i, line in enumerate(f):
@@ -146,7 +150,7 @@ class Polyedr:
                     # обрабатываем первую строку; buf - вспомогательный массив
                     buf = line.split()
                     # коэффициент гомотетии
-                    c = float(buf.pop(0))
+                    self.c = float(buf.pop(0))
                     # углы Эйлера, определяющие вращение
                     alpha, beta, gamma = (float(x) * pi / 180.0 for x in buf)
                 elif i == 1:
@@ -156,7 +160,7 @@ class Polyedr:
                     # задание всех вершин полиэдра
                     x, y, z = (float(x) for x in line.split())
                     self.vertexes.append(R3(x, y, z).rz(
-                        alpha).ry(beta).rz(gamma) * c)
+                        alpha).ry(beta).rz(gamma) * self.c)
                 else:
                     # вспомогательный массив
                     buf = line.split()
@@ -178,12 +182,12 @@ class Polyedr:
         tk.clean()
         for f in self.facets:
                 if f._is_good:
-                    self.square += f.square
+                    self.square += f.square()
         for e in self.edges:
             for f in self.facets:
                 e.shadow(f)
             for s in e.gaps:
                 tk.draw_line(e.r3(s.beg), e.r3(s.fin))
 
-        return self.square
+        return self.square /self.c**2
         
