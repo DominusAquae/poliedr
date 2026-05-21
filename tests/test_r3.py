@@ -108,15 +108,15 @@ class TestR3(unittest.TestCase):
     def test_cross04(self):
         self.assertEqual(R3ApproxMatcher(self.a.cross(R3(3.0, -2.0, 1.0))),
                          R3(8.0, 8.0, -8.0))
-    
+
     def test_area01(self):
         a = R3(1.0, 1.0, 0.0)
         self.assertAlmostEqual(R3.area(a, a, a), 0.0)
-    
+
     def test_area02(self):
         a = R3(1.0, 1.0, 100.0)
         self.assertAlmostEqual(R3.area(a, a, a), 0.0)
-        
+
     def test_area03(self):
         a, b, c = R3(0.0, 0.0, 0.1), R3(1.0, 1.0, 0.1), R3(2.0, 3.0, 0.1)
         a1, b1, c1 = R3(0.0, 0.0, 100), R3(1.0, 1.0, 100), R3(2.0, 3.0, 100)

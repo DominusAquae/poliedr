@@ -75,15 +75,15 @@ class TestVoid(unittest.TestCase):
     def test_if_good01(self):
         f = Facet([R3(0.0, 0.0, 0.0), R3(3.0, 0.0, 0.0), R3(0.0, 3.0, 0.0)])
         self.assertTrue(f._is_good())
-    
+
     def test_if_good02(self):
         f = Facet([R3(0.0, 0.0, 0.0), R3(100.0, 0.0, 0.0), R3(0.0, 3.0, 0.0)])
         self.assertTrue(f._is_good())
-    
+
     def test_if_good03(self):
         f = Facet([R3(0.0, 0.0, 0.0), R3(1.0, 0.0, 0.0), R3(0.0, 1.0, 0.0)])
         self.assertFalse(f._is_good())
-    
+
     def test_if_good04(self):
         f = Facet([R3(0.0, 0.0, 0.0), R3(2.0, 0.0, 0.0), R3(0.0, 2.0, 0.0)])
         self.assertFalse(f._is_good())
