@@ -187,4 +187,4 @@ class Polyedr:
             for s in e.gaps:
                 tk.draw_line(e.r3(s.beg), e.r3(s.fin))
 
-        return self.square / self.c**2
+        return self.square
